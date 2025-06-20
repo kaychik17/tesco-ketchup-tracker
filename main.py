@@ -43,41 +43,30 @@ def save_data(data):
         json.dump(data, f, indent=2)
 
 def compare_and_notify(current, previous):
-    report = "🛒 Tesco Ketchup Tracker:
-
-"
+    report = "🛒 Tesco Ketchup Tracker:\n\n"
     previous_map = {p['name']: p for p in previous}
     current_names = {p['name'] for p in current}
     previous_names = {p['name'] for p in previous}
 
-    # New products
     new_items = [p for p in current if p['name'] not in previous_names]
     if new_items:
-        report += "🆕 New products:
-"
+        report += "🆕 New products:\n"
         for p in new_items:
-            report += f"- {p['name']} – €{p['price']:.2f}
-"
+            report += f"- {p['name']} – €{p['price']:.2f}\n"
 
-    # Removed products
     removed_items = previous_names - current_names
     if removed_items:
-        report += "
-❌ Removed products:
-"
+        report += "\n❌ Removed products:\n"
         for name in removed_items:
-            report += f"- {name}
-"
+            report += f"- {name}\n"
 
-    # Price changes
     for p in current:
         if p['name'] in previous_map:
             old_price = previous_map[p['name']]['price']
             if old_price != p['price']:
                 diff = p['price'] - old_price
                 sign = "🔺" if diff > 0 else "🔻"
-                report += f"
-{sign} {p['name']}: €{old_price:.2f} → €{p['price']:.2f} ({'+' if diff > 0 else ''}{diff:.2f})"
+                report += f"\n{sign} {p['name']}: €{old_price:.2f} → €{p['price']:.2f} ({'+' if diff > 0 else ''}{diff:.2f})"
 
     if report.strip() != "🛒 Tesco Ketchup Tracker:":
         send_report(report)
