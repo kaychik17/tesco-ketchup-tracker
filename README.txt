@@ -1,7 +1,7 @@
-How to deploy this Tesco Ketchup Tracker bot:
+Tesco Ketchup Tracker Bot
 
-1. Upload the ZIP to Railway or other Python cloud.
-2. Install dependencies:
-   pip install -r requirements.txt
-3. Set environment variables (BOT_TOKEN and CHAT_ID).
-4. Run main.py once per day (manually or with a scheduler).
+1. Upload this project to Railway or other Python-compatible cloud.
+2. Set environment variables:
+   BOT_TOKEN=<your telegram bot token>
+   CHAT_ID=<your telegram chat id>
+3. Run main.py manually or schedule daily runs.
