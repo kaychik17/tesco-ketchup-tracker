@@ -1,6 +1,7 @@
 import os
 import json
 import requests
+import time
 from bs4 import BeautifulSoup
 import telegram
 
@@ -9,7 +10,7 @@ CHAT_ID = os.getenv("CHAT_ID")
 URL = "https://www.tesco.ie/groceries/en-IE/shop/food-cupboard/condiments-table-sauces-olives-and-pickles/ketchup"
 
 HEADERS = {
-    "User-Agent": "Mozilla/5.0"
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0 Safari/537.36"
 }
 
 def send_report(message):
@@ -17,7 +18,8 @@ def send_report(message):
     bot.send_message(chat_id=CHAT_ID, text=message)
 
 def fetch_products():
-    r = requests.get(URL, headers=HEADERS)
+    time.sleep(2)  # Anti-bot delay
+    r = requests.get(URL, headers=HEADERS, timeout=15)
     soup = BeautifulSoup(r.text, "lxml")
     items = soup.select("div.product")
     products = []
