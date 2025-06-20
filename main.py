@@ -43,7 +43,7 @@ def save_data(data):
         json.dump(data, f, indent=2)
 
 def compare_and_notify(current, previous):
-    report = "🛒 Tesco Ketchup Tracker:
+    report = "🛒 Tesco Ketchup Tracker:"
 
 "
     previous_map = {p['name']: p for p in previous}
